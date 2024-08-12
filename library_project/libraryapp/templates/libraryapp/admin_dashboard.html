@@ -1,0 +1,172 @@
+{% extends 'libraryapp/base.html' %}
+
+{% block title %}
+Admin Dashboard - City Library
+{% endblock %}
+
+{% block content %}
+    {% if messages %}
+        <div class="alert alert-danger">
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light sidebar">
+                <div class="position-sticky">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#" onclick="showSection('welcome')">
+                                <span data-feather="home"></span>
+                                Manage Libraries
+                            </a>
+                            <ul class="nav flex-column ml-3">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#" onclick="showSection('pending-requests')">
+                                        Pending Requests
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#" onclick="showSection('approved-libraries')">
+                                        Approved Libraries
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        {% comment %} 
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'logout' %}">
+                                <span data-feather="file"></span>
+                                Logout
+                            </a> 
+                        </li>
+                        {% endcomment %}
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Main Content -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Welcome, Admin!</h1>
+                </div>
+
+                <div class="row">
+                    <!-- Lists on the left side -->
+                    <div class="col-md-3">
+                        <!-- Empty placeholder for sidebar space -->
+                    </div>
+
+                    <!-- Main content area -->
+                    <div class="col-md-9 border-left">
+                        <!-- Welcome Section -->
+                        <div id="welcome" style="display: none;">
+                            {% comment %} 
+                            <h2>Welcome to the Admin Dashboard</h2>
+                            <p>Select an option from the sidebar to get started.</p> 
+                            {% endcomment %}
+                        </div>
+
+                        <!-- Pending Requests Section -->
+                        <div id="pending-requests" class="mt-4" style="display: none;">
+                            <h2>Pending Librarian Requests</h2>
+                            {% if pending_librarians %}
+                                <ul class="list-group">
+                                    {% for librarian in pending_librarians %}
+                                        <li class="list-group-item">
+                                            {{ librarian.first_name }} {{ librarian.last_name }} ({{ librarian.username }}) - Age: {{ librarian.age }}
+                                            <form method="post" action="{% url 'approve_librarian' librarian.id %}" style="display:inline;">
+                                                {% csrf_token %}
+                                                <button type="submit" class="btn btn-success btn-sm">Approve</button>
+                                            </form>
+                                            <form method="post" action="{% url 'reject_librarian' librarian.id %}" style="display:inline;">
+                                                {% csrf_token %}
+                                                <button type="submit" class="btn btn-danger btn-sm">Reject</button>
+                                            </form>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            {% else %}
+                                <p>No pending librarian requests.</p>
+                            {% endif %}
+                        </div>
+
+                        <!-- Approved Libraries Section -->
+                        <div id="approved-libraries" class="mt-4">
+                            <h2>LIBRARIES</h2>
+                            {% if approved_librarians %}
+                                <ul class="list-group">
+                                    {% for librarian in approved_librarians %}
+                                        <li class="list-group-item">
+                                            <p>Library Name: {{ librarian.library_name }}</p>
+                                            <p>Location: {{ librarian.library_location }}</p>
+                                            <p>Librarian: {{ librarian.username }}</p>
+                                            {% if librarian.library_image %}
+                                                <img src="{{ librarian.library_image.url }}" alt="Library Image" class="img-thumbnail" style="max-width: 100px; max-height: 100px;">
+                                            {% else %}
+                                                <p>No image available.</p>
+                                            {% endif %}
+                                            <form method="post" action="{% url 'delete_approved_library' librarian.id %}" style="display:inline;">
+                                                {% csrf_token %}
+                                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                            </form>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            {% else %}
+                                <p>No approved libraries.</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            document.getElementById('welcome').style.display = 'none';
+            document.getElementById('pending-requests').style.display = 'none';
+            document.getElementById('approved-libraries').style.display = 'none';
+
+            document.getElementById(sectionId).style.display = 'block';
+        }
+
+        // Show the approved libraries section by default if the admin is logged in
+        document.addEventListener('DOMContentLoaded', (event) => {
+            showSection('approved-libraries');
+        });
+    </script>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,32 @@
+{% extends 'libraryapp/base.html' %}
+
+{% block title %}Add Library{% endblock %}
+
+{% block content %}
+<h1>Add a New Library</h1>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <label for="name">library_name:</label>
+    <input type="text" id="name" name="library_name" required><br>
+
+    <label for="location">Location:</label>
+    <input type="text" id="location" name="location" required><br>
+
+    <label for="image">Image:</label>
+    <input type="file" id="image" name="image"><br>
+
+    <label for="librarian_username">Librarian:</label>
+    <select id="librarian_username" name="librarian_username">
+        {% for librarian in librarians %}
+        <option value="{{ librarian.username }}">{{ librarian.username }}</option>
+        {% endfor %}
+    </select><br>
+
+    <button type="submit">Add Library</button>
+</form>
+{% endblock %}
+
+
+
+
+

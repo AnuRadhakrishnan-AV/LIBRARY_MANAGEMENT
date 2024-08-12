@@ -1,0 +1,32 @@
+{% extends 'libraryapp/base.html' %}
+
+{% block content %}
+
+{% if messages %}
+        <div class="alert alert-danger">
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+<div class="container">
+    <h1>Book {{ book.title }}</h1>
+
+    <p><strong>Author:</strong> {{ book.author }}</p>
+    <p><strong>ISBN:</strong> {{ book.isbn }}</p>
+
+    <p><strong>Booked On:</strong> {{ booked_on }}</p>
+    <p><strong>Return Due Date:</strong> {{ return_due_date }}</p>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-primary">Confirm Booking</button>
+    </form>
+
+    <br>
+    <br>
+
+    <a href="{% url 'library_detail' pk=book.librarian.id %}" class="btn btn-secondary">Book another book</a>
+</div>
+{% endblock %}
+

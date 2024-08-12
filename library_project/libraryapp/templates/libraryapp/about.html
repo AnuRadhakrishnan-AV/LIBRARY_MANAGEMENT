@@ -1,0 +1,57 @@
+{% extends 'libraryapp/base.html' %}
+
+{% block title %}
+{% load static %}
+About - City Library Management System
+{% endblock %}
+
+{% block content %}
+<style>
+    body {
+        background-image: url("{% static 'libraryapp/images/img1.jpg' %}");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+    }
+    .card {
+        background-color: rgba(255, 255, 255, 0.8); /* Slightly transparent background */
+    }
+    .card-header {
+        background-color: transparent;
+        color: black; /* White text color */
+        border-bottom: none; /* Remove bottom border */
+    }
+</style>
+<div class="container mt-5 d-flex justify-content-center">
+    <div class="card shadow-lg" style="width: 50%;">
+        <div class="card-header text-center">
+            <h2>About Us</h2>
+        </div>
+        <div class="card-body text-center">
+            <p>The City Library Management System is a comprehensive platform that simplifies library operations across the city. It enhances book inventory management, improves user experience, and automates notifications for due dates and new arrivals. Our mission is to foster a love for reading and make knowledge accessible to everyone.</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

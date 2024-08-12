@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}City Library{% endblock %}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-image: url("{% static 'libraryapp/images/library.avif' %}");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            height: 100vh;
+            color: #343a40;
+        }
+        .navbar {
+            background-color: #343a40;
+        }
+        .navbar a {
+            color: #fff;
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+        .navbar .navbar-brand {
+            color: #fff;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        .content {
+            margin-top: 10%;
+        }
+        .content h1 {
+            font-size: 5rem;
+            font-weight: bolder;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        .btn-custom {
+            margin-top: 20px;
+            margin-bottom: 60px;
+            font-size: 1.5rem;
+            padding: 12px 24px;
+            background-color: transparent;
+            border: 2px solid #fff;
+            color: #fff;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .btn-custom:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: black;
+        }
+        .info-section, .contact-info {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 3em;
+            border-radius: 8px;
+            margin: 3em 0;
+        }
+        .info-section h2, .contact-info h2 {
+            font-size: 2.5em;
+            font-weight: 700;
+            margin-bottom: 1em;
+            text-align: center;
+        }
+        .info-section p, .contact-info p {
+            font-size: 1.2em;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="#">City Library</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'librarian_signup' %}">Librarian Signup</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'user_signup' %}">User Signup</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'login' %}">Login</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="content text-center">
+        <h1>City Library</h1>
+        <br><br><br><br><br><br><br><br>
+        <a href="{% url 'index' %}" class="btn btn-custom">EXPLORE LIBRARIES</a>
+    </div>
+
+    <div class="container">
+        <div class="info-section">
+            <h2>About</h2>
+            <p>The City Library Management System is a comprehensive platform that simplifies library operations across the city. It enhances book inventory management, improves user experience, and automates notifications for due dates and new arrivals. Our mission is to foster a love for reading and make knowledge accessible to everyone.</p>
+        </div>
+
+        <div class="contact-info">
+            <h2>Contact</h2>
+            <p><strong>Address:</strong> 123 City Library Lane, Booktown, BK 12345</p>
+            <p><strong>Phone:</strong> 9037057644</p>
+            <p><strong>Email:</strong> contact@librarysystem.com</p>
+        </div>
+    </div>
+
+    <script src="https://cdn.botpress.cloud/webchat/v1/inject.js"></script>
+    <script src="https://mediafiles.botpress.cloud/c481cbf2-fcde-40ff-8d60-1d00cc072e54/webchat/config.js" defer></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

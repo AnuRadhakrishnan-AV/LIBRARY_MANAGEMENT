@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    {% if messages %}
+        <div class="alert alert-danger">
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Details | City Library</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            color: #343a40;
+        }
+        .navbar {
+            background-color: #343a40;
+        }
+        .navbar a {
+            color: #fff;
+        }
+        .nav-item {
+            color: #fff;
+        }
+        .card-img-wrapper {
+            width: 100%;
+            height: 400px; /* Increase the height to make the cards larger */
+            overflow: hidden;
+        }
+        .card-img-top {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="{% url 'user_dashboard' %}">City Library</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'user_dashboard' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'about' %}">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'contact' %}">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <h1>{{ library_details.name }}</h1>
+        <hr>
+
+        <h2>Books in This Library:</h2>
+        {% if books %}
+            <div class="row">
+                {% for book in books %}
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100">
+                            <div class="card-img-wrapper">
+                                {% if book.cover_image %}
+                                    <img src="{{ book.cover_image.url }}" alt="{{ book.title }}" class="card-img-top">
+                                {% else %}
+                                    <img src="/path/to/default-image.jpg" alt="No cover image available" class="card-img-top">
+                                {% endif %}
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">{{ book.title }}</h5>
+                                <p class="card-text"><strong>Author:</strong> {{ book.author }}</p>
+                                <p class="card-text"><strong>Genre:</strong> {{ book.genre }}</p>
+                                {% comment %} <p class="card-text"><strong>ISBN:</strong> {{ book.isbn }}</p> {% endcomment %}
+                            </div>
+                            <div class="card-footer">
+                                {% if book.is_booked %}
+                                    <p class="btn btn-secondary">Book Already Booked</p>
+                                {% else %}
+                                    <a href="{% url 'booking_page' pk=book.pk %}" class="btn btn-primary btn-block">Book Now</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    {% if forloop.counter|divisibleby:3 and not forloop.last %}
+                        </div><div class="row">
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>No books available in this library.</p>
+        {% endif %}
+
+        <!-- Link to the user's booked books -->
+        {% comment %} <div class="mt-4">
+            <a href="{% url 'user_profile' %}" class="btn btn-info">My profile</a>
+        </div> {% endcomment %}
+    </div>
+
+    <script src="https://cdn.botpress.cloud/webchat/v2/inject.js"></script>
+    <script>
+        window.botpressWebChat.init({
+            host: "https://mediafiles.botpress.cloud",
+            botId: "c481cbf2-fcde-40ff-8d60-1d00cc072e54",
+            style: {
+                colors: {
+                    primary: '#343a40', // The primary color for the icon
+                    accent: '#ffffff'   // Accent color, if needed
+                }
+            }
+        });
+    </script>
+
+    <script src="https://cdn.botpress.cloud/webchat/v1/inject.js"></script>
+    <script src="https://mediafiles.botpress.cloud/c481cbf2-fcde-40ff-8d60-1d00cc072e54/webchat/config.js" defer></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

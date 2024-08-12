@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Library List</title>
+</head>
+<body>
+    <h1>Library List</h1>
+    {% comment %} <a href="{% url 'add_library' %}">Add Library</a> {% endcomment %}
+    <ul>
+        {% for library in libraries %}
+        <li>
+            <strong>{{ library.name }}</strong><br>
+            Location: {{ library.location }}<br>
+            Librarian: {{ library.librarian }}<br>
+            {% if library.image %}
+            <img src="{{ library.image.url }}" alt="{{ library.name }}" style="width:100px;height:100px;"><br>
+            {% endif %}
+            {% comment %} Open: {{ library.is_open|yesno:"Yes,No" }}<br> {% endcomment %}
+            <a href="{% url 'edit_library' library.pk %}">Edit</a>
+            <form method="post" action="{% url 'delete_library' library.pk %}">
+                {% csrf_token %}
+                <button type="submit">Delete</button>
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

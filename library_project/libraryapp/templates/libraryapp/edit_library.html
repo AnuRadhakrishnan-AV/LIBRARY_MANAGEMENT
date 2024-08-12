@@ -1,0 +1,79 @@
+{% extends 'libraryapp/base.html' %}
+
+{% block title %}Edit Library{% endblock %}
+
+{% block content %}
+<h1>Edit Library</h1>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="hidden" name="pk" value="{{ library.pk }}">
+    
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" value="{{ library.name }}" required><br>
+
+    <label for="location">Location:</label>
+    <input type="text" id="location" name="location" value="{{ library.location }}" required><br>
+
+    <label for="image">Image:</label>
+    <input type="file" id="image" name="image"><br>
+
+    <label for="librarian_username">Librarian:</label>
+    <select id="librarian_username" name="librarian_username">
+        {% for librarian in librarians %}
+        <option value="{{ librarian.username }}" {% if librarian.username == library.librarian %}selected{% endif %}>
+            {{ librarian.username }}
+        </option>
+        {% endfor %}
+    </select><br>
+
+    <button type="submit">Update Library</button>
+</form>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% comment %} <!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Library</title>
+</head>
+<body>
+    <h1>Edit Library</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" value="{{ library.name }}" required><br>
+
+        <label for="location">Location:</label>
+        <input type="text" id="location" name="location" value="{{ library.location }}" required><br>
+
+        <label for="image">Image:</label>
+        <input type="file" id="image" name="image"><br>
+
+        <button type="submit">Save Changes</button>
+    </form>
+</body>
+</html> {% endcomment %}

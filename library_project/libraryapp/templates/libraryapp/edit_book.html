@@ -1,0 +1,77 @@
+{% extends "libraryapp/base.html" %}
+
+{% block content %}
+<div class="container">
+    <h2>Edit Book</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" class="form-control" id="title" name="title" value="{{ book.title }}" required>
+        </div>
+        <div class="form-group">
+            <label for="author">Author</label>
+            <input type="text" class="form-control" id="author" name="author" value="{{ book.author }}" required>
+        </div>
+        <div class="form-group">
+            <label for="isbn">ISBN</label>
+            <input type="text" class="form-control" id="isbn" name="isbn" value="{{ book.isbn }}" required>
+        </div>
+        <div class="form-group">
+            <label for="cover_image">Cover Image</label>
+            <input type="file" class="form-control-file" id="cover_image" name="cover_image">
+            {% if book.cover_image %}
+                <img src="{{ book.cover_image.url }}" alt="{{ book.title }}" style="width: 100px; height: auto;">
+            {% endif %}
+        </div>
+        <div class="form-group">
+            <label for="genre">Genre</label>
+            <select class="form-control" id="genre" name="genre" required>
+                <option value="fiction" {% if book.genre == 'fiction' %}selected{% endif %}>Fiction</option>
+                <option value="novel" {% if book.genre == 'novel' %}selected{% endif %}>Novel</option>
+                <option value="fantasy" {% if book.genre == 'fantasy' %}selected{% endif %}>Fantasy</option>
+                <option value="autobiography" {% if book.genre == 'autobiography' %}selected{% endif %}>Autobiography</option>
+                <option value="biography" {% if book.genre == 'biography' %}selected{% endif %}>Biography</option>
+                <option value="poetry" {% if book.genre == 'poetry' %}selected{% endif %}>Poetry</option>
+                <option value="thriller" {% if book.genre == 'thriller' %}selected{% endif %}>Thriller</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="language">Language</label>
+            <select class="form-control" id="language" name="language" required>
+                <option value="english" {% if book.language == 'english' %}selected{% endif %}>English</option>
+                <option value="malayalam" {% if book.language == 'malayalam' %}selected{% endif %}>Malayalam</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Update Book</button>
+    </form>
+</div>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

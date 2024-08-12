@@ -1,0 +1,112 @@
+{% extends 'libraryapp/base.html' %}
+
+{% block content %}
+<h1>User Profile</h1>
+<table class="table table-bordered">
+    <tbody>
+        <tr>
+            <th>Username</th>
+            <td>{{ user.username }}</td>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <td>{{ user.email }}</td>
+        </tr>
+        <tr>
+            <th>Age</th>
+            <td>{{ user.age }}</td>
+        </tr>
+        <tr>
+            <th>Address</th>
+            <td>{{ user.address }}</td>
+        </tr>
+        <tr>
+            <th>Contact Number</th>
+            <td>{{ user.contact_no }}</td>
+        </tr>
+    </tbody>
+</table>
+
+<h2>Booked Books</h2>
+{% if bookings %}
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Book Title</th>
+                <th>Author</th>
+                <th>Library Name</th>
+                <th>Library Location</th>
+                <th>Booked On</th>
+                <th>Return Due Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for booking in bookings %}
+                <tr>
+                    <td>{{ booking.book.title }}</td>
+                    <td>{{ booking.book.author }}</td>
+                    <td>{{ booking.book.librarian.library_name }}</td>
+                    <td>{{ booking.book.librarian.library_location }}</td>
+                    <td>{{ booking.booked_on }}</td>
+                    <td>{{ booking.return_due_date }}</td>
+                </tr>
+            {% endfor %}
+        </body>
+    </table>
+{% else %}
+    <p>You have no booked books.</p>
+{% endif %}
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% comment %} 
+{% extends 'libraryapp/base.html' %}
+{% block content %}
+<h1>User Profile</h1>
+<p>Username: {{ user.username }}</p>
+<p>Email: {{ user.email }}</p>
+<p>Age: {{ user.age }}</p>
+<p>Address: {{ user.address }}</p>
+<p>Contact Number: {{ user.contact_no }}</p>
+
+<h2>Booked Books</h2>
+{% if bookings %}
+    <ul>
+    {% for booking in bookings %}
+        <li>
+            <strong>Book Title:</strong> {{ booking.book.title }}<br>
+            <strong>Author:</strong> {{ booking.book.author }}<br>
+            <strong>Library Name:</strong> {{ booking.book.librarian.library_name }}<br>
+            <strong>Library Location:</strong> {{ booking.book.librarian.library_location }}<br>
+            <strong>Booked On:</strong> {{ booking.booked_on }}<br>
+            <strong>Return Due Date:</strong> {{ booking.return_due_date }}<br>
+        </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>You have no booked books.</p>
+{% endif %}
+{% endblock %} {% endcomment %}
+
