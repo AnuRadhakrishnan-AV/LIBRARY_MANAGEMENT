@@ -1,6 +1,6 @@
 # models.py
 from django.db import models
-from textblob import TextBlob
+
 
 class User(models.Model):
     ROLE_CHOICES = [
@@ -66,27 +66,6 @@ class Booking(models.Model):
     def __str__(self):
         return f'{self.user.username} booked {self.book.title}'
 
-class Review(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    librarian = models.ForeignKey(User, on_delete=models.CASCADE, related_name='reviews')
-    content = models.TextField()
-    sentiment = models.CharField(max_length=20, blank=True)
-
-    def save(self, *args, **kwargs):
-        self.sentiment = self.analyze_sentiment(self.content)
-        super().save(*args, **kwargs)
-
-    def analyze_sentiment(self, text):
-        analysis = TextBlob(text)
-        if analysis.sentiment.polarity > 0:
-            return 'positive'
-        elif analysis.sentiment.polarity == 0:
-            return 'neutral'
-        else:
-            return 'negative'
-
-    def __str__(self):
-        return f'Review by {self.user.username} for {self.librarian.library_name}'
 
 
 
