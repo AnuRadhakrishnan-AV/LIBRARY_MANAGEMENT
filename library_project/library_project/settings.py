@@ -13,8 +13,13 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 import os
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+
+
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -140,6 +145,36 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 #email configuration
+
+import os
+
+def load_env_file(filepath):
+    """Load environment variables from a .env file."""
+    try:
+        with open(filepath) as f:
+            for line in f:
+                line = line.strip()
+                if line and not line.startswith('#'):
+                    key, value = line.split('=', 1)
+                    os.environ[key] = value.strip('\"')
+    except FileNotFoundError:
+        print(f"Error: The .env file was not found at {filepath}")
+
+# Load the .env file
+env_file_path = os.path.join(os.path.dirname(__file__), '.env')
+print(f"Looking for .env file at: {env_file_path}")  # Debugging line
+load_env_file(env_file_path)
+
+# Access your email configuration from environment variables
+EMAIL_BACKEND = os.getenv('EMAIL_BACKEND', 'django.core.mail.backends.smtp.EmailBackend')
+EMAIL_HOST = os.getenv('EMAIL_HOST', 'default.smtp.com')
+EMAIL_PORT = int(os.getenv('EMAIL_PORT', 587))
+EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS', 'True').lower() == 'true'
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', EMAIL_HOST_USER)
+
+
 
 
 
